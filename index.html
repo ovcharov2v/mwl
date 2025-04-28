@@ -12,7 +12,34 @@
 		<link rel="preload" href="fonts/TTNorms-Bold.woff2" as="font" crossorigin="anonymous">
 		<link rel="stylesheet" href="./libs/swiper/swiper-bundle.css">
 		<link rel="stylesheet" href="./libs/swiper/effect-fade.css">
-		<link rel="stylesheet" href="./css/main.css?v=1745515250711">
+		<link rel="stylesheet" href="./css/main.css?v=1745836232748">
+		<script>
+						document.addEventListener('DOMContentLoaded', function() {
+			// Базовые настройки
+			const maxWidth = 1400; // Ширина, при которой начинается масштабирование
+			const minWidth = 320;   // Минимальная ширина экрана
+			const baseFontSize = 16; // Базовый размер шрифта (px) при maxWidth
+			
+			function adjustFontSize() {
+				const windowWidth = window.innerWidth;
+				
+				if (windowWidth < maxWidth) {
+				// Вычисляем пропорциональный размер шрифта
+				const scale = (windowWidth - minWidth) / (maxWidth - minWidth);
+				// Ограничиваем минимальный размер шрифта (например, 12px)
+				const fontSize = Math.max(6, baseFontSize * scale);
+				document.documentElement.style.fontSize = fontSize + 'px';
+				} else {
+				// Возвращаем стандартный размер
+				document.documentElement.style.fontSize = baseFontSize + 'px';
+				}
+			}
+			
+			// Вызываем при загрузке и при изменении размера окна
+			adjustFontSize();
+			window.addEventListener('resize', adjustFontSize);
+			});
+		</script>
 	</head>
 	<body>
 		<header class="header">
@@ -30,15 +57,21 @@
 					</nav><a class="header__phone" href="tel:8 (800) 533-75-69">8 (800) 533-75-69</a>
 					<button class="button button--blue button--md header__nav-btn" type="button" data-modal="get-media"> <span class="button__text">Оставить заявку</span></button>
 				</div>
-				<button class="header__menu-btn" type="button" aria-label="Меню">
-					<svg class="header__menu-btn-icon" viewbox="0 0 24 24" fill="none">
-						<path d="M0.999756 17.5H22.9997" stroke="#3773EA" stroke-width="1.6" stroke-miterlimit="10"></path>
-						<path d="M0.999756 11.5H22.9997" stroke="#3773EA" stroke-width="1.6" stroke-miterlimit="10"></path>
-						<path d="M0.999756 5.5L22.9998 5.5" stroke="#3773EA" stroke-width="1.6" stroke-miterlimit="10"></path>
-					</svg>
-				</button>
+				<button class="header__menu-btn" type="button" aria-label="Меню"><span class="header__menu-btn-line"></span><span class="header__menu-btn-line"></span><span class="header__menu-btn-line"></span></button>
 			</div>
 		</header>
+		<!-- Mobile menu-->
+		<div class="mobile-menu">
+			<ul class="mobile-menu__nav">
+				<li class="mobile-menu__nav-el"> <a class="mobile-menu__nav-link" href="#cases">Кейсы</a></li>
+				<li class="mobile-menu__nav-el"> <a class="mobile-menu__nav-link" href="#services">Услуги</a></li>
+				<li class="mobile-menu__nav-el"> <a class="mobile-menu__nav-link" href="#audit">Бесплатный аудит</a></li>
+			</ul>
+			<div class="mobile-menu__bottom"> 
+				<div class="mobile-menu__contacts-box"> <a class="mobile-menu__phone" href="tel:8 (800) 533-75-69">8 (800) 533-75-69</a><a class="mobile-menu__email" href="mailto:top@mworx.ru">top@mworx.ru</a></div>
+				<button class="button button--blue button--xl mobile-menu__btn" type="button" data-modal="get-media"> <span class="button__text">Оставить заявку</span></button>
+			</div>
+		</div>
 		<main class="main">
 			<!-- Section Hero-->
 			<section class="section-hero"> 
@@ -182,7 +215,7 @@
 							<p class="fade-block section__text section-kpi__text">4 года — средний life time c клиентами. По запросу дадим контакты маркетологов любого автосалона.</p>
 						</div>
 					</div>
-					<div class="section-kpi__marquee section-kpi__marquee--desktop fade-block" data-speed="1" data-pausable="true">
+					<div class="section-kpi__marquee section-kpi__marquee--desktop marquee-desktop fade-block" data-speed="1" data-pausable="true">
 						<div class="section-kpi__marquee-wrapper">
 							<div class="section-kpi__marquee-track">
 								<!-- item-->
@@ -321,7 +354,7 @@
 						</div>
 					</div>
 					<div class="section-kpi__marquee-grid">
-						<div class="section-kpi__marquee section-kpi__marquee--mobile fade-block" data-speed="1" data-pausable="true" data-reverse="true">
+						<div class="section-kpi__marquee marquee-mobile fade-block" data-speed="1" data-reverse="true">
 							<div class="section-kpi__marquee-wrapper">
 								<div class="section-kpi__marquee-track">
 									<!-- item-->
@@ -387,7 +420,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="section-kpi__marquee section-kpi__marquee--mobile fade-block" data-speed="1" data-pausable="true">
+						<div class="section-kpi__marquee marquee-mobile fade-block" data-speed="1">
 							<div class="section-kpi__marquee-wrapper">
 								<div class="section-kpi__marquee-track">
 									<!-- item-->
@@ -1098,7 +1131,7 @@
 							<h3 class="section-company__slider-title">Какие инструменты используем:</h3>
 							<div class="section-company__nav-slider swiper">
 								<div class="section-company__nav swiper-wrapper">
-									<button class="swiper-slide section-company__nav-el section-company__nav-el--active" type="button" data-slide="0"><img class="section-company__nav-icon" src="images/section-company/yandex.svg" alt="">
+									<button class="swiper-slide section-company__nav-el" type="button" data-slide="0"><img class="section-company__nav-icon" src="images/section-company/yandex.svg" alt="">
 										<p class="section-company__nav-text">Яндекс Директ</p>
 									</button>
 									<button class="swiper-slide section-company__nav-el" type="button" data-slide="1"><img class="section-company__nav-icon" src="images/section-company/google.svg" alt="">
@@ -1374,6 +1407,86 @@
 									<p class="section-about__leader-text">«Рейтинг Рунета» — это ведущая в отрасли всероссийская премия, которую вручают лучшим агентствам в маркетинге, разработке и дизайне.</p>
 									<p class="section-about__leader-text">
 										В 2024 году в ней приняли участие <strong>1800 агентств России.</strong></p>
+								</div>
+							</div>
+						</div>
+						<div class="section-about__marquee-grid">
+							<div class="section-about__marquee-mobile marquee-mobile" data-speed="1" data-reverse="true">
+								<div class="section-about__marquee-wrapper">
+									<div class="section-about__marquee-track">
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo1@1x.png" srcset="images/section-kpi/logo1@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo2@1x.png" srcset="images/section-kpi/logo2@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo3@1x.png" srcset="images/section-kpi/logo3@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo4@1x.png" srcset="images/section-kpi/logo4@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo5@1x.png" srcset="images/section-kpi/logo5@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="section-about__marquee-mobile marquee-mobile" data-speed="1">
+								<div class="section-about__marquee-wrapper">
+									<div class="section-about__marquee-track">
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo1@1x.png" srcset="images/section-kpi/logo1@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo2@1x.png" srcset="images/section-kpi/logo2@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo3@1x.png" srcset="images/section-kpi/logo3@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo4@1x.png" srcset="images/section-kpi/logo4@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo5@1x.png" srcset="images/section-kpi/logo5@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+										<!-- item-->
+										<div class="section-about__item">
+											<picture>
+												<!--source(srcset='images/'+imgName+'@1x.webp, images/'+imgName+'@2x.webp 2x', type='image/webp')--><img class="section-about__item-logo" src="images/section-kpi/logo6@1x.png" srcset="images/section-kpi/logo6@2x.png 2x" alt=""/>
+											</picture>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -1850,7 +1963,8 @@
 		<script src="./libs/lottie.min.js"></script>
 		<script src="./libs/swiper/swiper-bundle.min.js"></script>
 		<script src="./libs/imask/imask.min.js"></script>
-		<script src="./js/vendor.js?v=1745515250717"></script>
-		<script src="./js/main.js?v=1745515250717"></script>
+		<script src="./libs/marquee3k.js"></script>
+		<script src="./js/vendor.js?v=1745836232753"></script>
+		<script src="./js/main.js?v=1745836232753"></script>
 	</body>
 </html>

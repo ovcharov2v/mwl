@@ -1,66 +1,6 @@
 /******/ (function(modules) { // webpackBootstrap
-/******/ 	// install a JSONP callback for chunk loading
-/******/ 	function webpackJsonpCallback(data) {
-/******/ 		var chunkIds = data[0];
-/******/ 		var moreModules = data[1];
-/******/ 		var executeModules = data[2];
-/******/
-/******/ 		// add "moreModules" to the modules object,
-/******/ 		// then flag all "chunkIds" as loaded and fire callback
-/******/ 		var moduleId, chunkId, i = 0, resolves = [];
-/******/ 		for(;i < chunkIds.length; i++) {
-/******/ 			chunkId = chunkIds[i];
-/******/ 			if(Object.prototype.hasOwnProperty.call(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 				resolves.push(installedChunks[chunkId][0]);
-/******/ 			}
-/******/ 			installedChunks[chunkId] = 0;
-/******/ 		}
-/******/ 		for(moduleId in moreModules) {
-/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
-/******/ 				modules[moduleId] = moreModules[moduleId];
-/******/ 			}
-/******/ 		}
-/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
-/******/
-/******/ 		while(resolves.length) {
-/******/ 			resolves.shift()();
-/******/ 		}
-/******/
-/******/ 		// add entry modules from loaded chunk to deferred list
-/******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
-/******/
-/******/ 		// run deferred modules when all chunks ready
-/******/ 		return checkDeferredModules();
-/******/ 	};
-/******/ 	function checkDeferredModules() {
-/******/ 		var result;
-/******/ 		for(var i = 0; i < deferredModules.length; i++) {
-/******/ 			var deferredModule = deferredModules[i];
-/******/ 			var fulfilled = true;
-/******/ 			for(var j = 1; j < deferredModule.length; j++) {
-/******/ 				var depId = deferredModule[j];
-/******/ 				if(installedChunks[depId] !== 0) fulfilled = false;
-/******/ 			}
-/******/ 			if(fulfilled) {
-/******/ 				deferredModules.splice(i--, 1);
-/******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
-/******/ 			}
-/******/ 		}
-/******/
-/******/ 		return result;
-/******/ 	}
-/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
-/******/ 	// object to store loaded and loading chunks
-/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 	// Promise = chunk loading, 0 = chunk loaded
-/******/ 	var installedChunks = {
-/******/ 		"main": 0
-/******/ 	};
-/******/
-/******/ 	var deferredModules = [];
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -139,18 +79,9 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
-/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
-/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
-/******/ 	jsonpArray.push = webpackJsonpCallback;
-/******/ 	jsonpArray = jsonpArray.slice();
-/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
-/******/ 	var parentJsonpFunction = oldJsonpFunction;
 /******/
-/******/
-/******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push(["./src/js/main.js","vendor"]);
-/******/ 	// run deferred modules when ready
-/******/ 	return checkDeferredModules();
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/main.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -336,6 +267,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./src/js/components/_marquees3k.js":
+/*!******************************************!*\
+  !*** ./src/js/components/_marquees3k.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var mm = gsap.matchMedia();
+mm.add("(min-width: 1024px)", function () {
+  Marquee3k.init({
+    selector: 'marquee-desktop'
+  });
+});
+mm.add("(max-width: 1023px)", function () {
+  Marquee3k.init({
+    selector: 'marquee-mobile'
+  });
+});
+
+/***/ }),
+
 /***/ "./src/js/components/_menu.js":
 /*!************************************!*\
   !*** ./src/js/components/_menu.js ***!
@@ -369,14 +321,35 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Menu Scroll
-  var linklist = header.querySelectorAll('.header__nav-link');
+  var linklist = document.querySelectorAll('.header__nav-link, .mobile-menu__nav-link');
   linklist.forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
+      closeMobMenu();
       var target = e.target.getAttribute('href');
       scrollToTarget(target);
     });
   });
+  var mmBtn = document.querySelector('.header__menu-btn');
+  mmBtn.addEventListener('click', function () {
+    if (document.body.classList.contains('mm-open')) {
+      closeMobMenu();
+    } else {
+      openMobMenu();
+    }
+  });
+  var openMobMenu = function openMobMenu() {
+    document.body.classList.add('mm-open');
+    setTimeout(function () {
+      document.body.classList.add('mm-opened');
+    }, 10);
+  };
+  var closeMobMenu = function closeMobMenu() {
+    document.body.classList.remove('mm-opened');
+    setTimeout(function () {
+      document.body.classList.remove('mm-open');
+    }, 300);
+  };
 });
 
 /***/ }),
@@ -516,21 +489,21 @@ document.addEventListener('DOMContentLoaded', function () {
 /***/ (function(module, exports) {
 
 gsap.registerPlugin(ScrollTrigger);
-gsap.to(".overlap-box", {
-  y: -window.innerHeight,
-  marginBottom: -window.innerHeight,
-  scrollTrigger: {
-    trigger: ".section-hero",
-    start: "top top",
-    end: "bottom top",
-    scrub: 1.5,
-    //markers: false,
-    pin: true
-  }
+var mm = gsap.matchMedia();
+mm.add("(min-width: 1024px)", function () {
+  gsap.to(".overlap-box", {
+    y: -window.innerHeight,
+    marginBottom: -window.innerHeight,
+    scrollTrigger: {
+      trigger: ".section-hero",
+      start: "top top",
+      end: "bottom top",
+      scrub: 1.5,
+      //markers: false,
+      pin: true
+    }
+  });
 });
-setInterval(function () {
-  //ScrollTrigger.refresh()
-}, 400);
 
 /***/ }),
 
@@ -613,20 +586,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_overlap_box__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_components_overlap_box__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/_button */ "./src/js/components/_button.js");
 /* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_button__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _sections_section_hero__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./sections/_section-hero */ "./src/js/sections/_section-hero.js");
-/* harmony import */ var _sections_section_hero__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_sections_section_hero__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _sections_section_kpi__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sections/_section-kpi */ "./src/js/sections/_section-kpi.js");
-/* harmony import */ var _sections_section_traffic__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sections/_section-traffic */ "./src/js/sections/_section-traffic.js");
-/* harmony import */ var _sections_section_traffic__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_sections_section_traffic__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _sections_section_sites__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./sections/_section-sites */ "./src/js/sections/_section-sites.js");
-/* harmony import */ var _sections_section_sites__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_sections_section_sites__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./sections/_section-company */ "./src/js/sections/_section-company.js");
-/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_sections_section_company__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./sections/_section-contract */ "./src/js/sections/_section-contract.js");
-/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_sections_section_contract__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./sections/_section-about */ "./src/js/sections/_section-about.js");
-/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_sections_section_about__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _components_marquees3k__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/_marquees3k */ "./src/js/components/_marquees3k.js");
+/* harmony import */ var _components_marquees3k__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_marquees3k__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _sections_section_hero__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sections/_section-hero */ "./src/js/sections/_section-hero.js");
+/* harmony import */ var _sections_section_hero__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_sections_section_hero__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _sections_section_kpi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sections/_section-kpi */ "./src/js/sections/_section-kpi.js");
+/* harmony import */ var _sections_section_kpi__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_sections_section_kpi__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _sections_section_traffic__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./sections/_section-traffic */ "./src/js/sections/_section-traffic.js");
+/* harmony import */ var _sections_section_traffic__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_sections_section_traffic__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _sections_section_sites__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./sections/_section-sites */ "./src/js/sections/_section-sites.js");
+/* harmony import */ var _sections_section_sites__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_sections_section_sites__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./sections/_section-company */ "./src/js/sections/_section-company.js");
+/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_sections_section_company__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./sections/_section-contract */ "./src/js/sections/_section-contract.js");
+/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_sections_section_contract__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./sections/_section-about */ "./src/js/sections/_section-about.js");
+/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_sections_section_about__WEBPACK_IMPORTED_MODULE_15__);
 // Components
+
 
 
 
@@ -654,27 +631,29 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var init = function init() {
-  var marqueeList = document.querySelectorAll('.section-about__img-track-box');
-  if (!marqueeList.length) {
-    return;
-  }
-  marqueeList.forEach(function (marquee, index) {
-    var marqueeContent = marquee.querySelector('.section-about__img-track');
-    var marqueeContentClone = marqueeContent.cloneNode(true);
-    marquee.append(marqueeContentClone);
-    var height = parseInt(window.getComputedStyle(marqueeContent).getPropertyValue("height"), 10);
-    gsap.utils.toArray(marquee.children).forEach(function (child) {
-      gsap.to(child, {
-        y: "".concat(index === 0 ? '+' : '-', "=").concat(height),
-        duration: 25,
-        ease: "none",
-        repeat: -1
+document.addEventListener('DOMContentLoaded', function () {
+  var mm = gsap.matchMedia();
+  mm.add("(min-width: 1024px)", function () {
+    var marqueeList = document.querySelectorAll('.section-about__img-track-box');
+    if (!marqueeList.length) {
+      return;
+    }
+    marqueeList.forEach(function (marquee, index) {
+      var marqueeContent = marquee.querySelector('.section-about__img-track');
+      var marqueeContentClone = marqueeContent.cloneNode(true);
+      marquee.append(marqueeContentClone);
+      var height = parseInt(window.getComputedStyle(marqueeContent).getPropertyValue("height"), 10);
+      gsap.utils.toArray(marquee.children).forEach(function (child) {
+        gsap.to(child, {
+          y: "".concat(index === 0 ? '+' : '-', "=").concat(height),
+          duration: 25,
+          ease: "none",
+          repeat: -1
+        });
       });
     });
   });
-};
-document.addEventListener('DOMContentLoaded', init);
+});
 
 /***/ }),
 
@@ -698,6 +677,16 @@ document.addEventListener('DOMContentLoaded', function () {
       effect: "fade",
       fadeEffect: {
         crossFade: true
+      }
+    });
+    slider.autoplay.stop();
+    ScrollTrigger.create({
+      trigger: ".section-company__nav-slider",
+      start: "top 80%",
+      once: true,
+      onUpdate: function onUpdate() {
+        slider.autoplay.start();
+        section.querySelector(".section-company__nav-el[data-slide=\"0\"]").classList.add('section-company__nav-el--active');
       }
     });
     var sliderNavEl = section.querySelector('.section-company__nav-slider');
@@ -815,21 +804,12 @@ document.addEventListener('DOMContentLoaded', init);
 /*!*****************************************!*\
   !*** ./src/js/sections/_section-kpi.js ***!
   \*****************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_marquee3000_marquee3k_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! /node_modules/marquee3000/marquee3k.js */ "./node_modules/marquee3000/marquee3k.js");
-/* harmony import */ var _node_modules_marquee3000_marquee3k_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_marquee3000_marquee3k_js__WEBPACK_IMPORTED_MODULE_0__);
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 document.addEventListener('DOMContentLoaded', function () {
   var section = document.querySelector('.section-kpi');
-  if (section) {
-    _node_modules_marquee3000_marquee3k_js__WEBPACK_IMPORTED_MODULE_0___default.a.init({
-      selector: 'section-kpi__marquee'
-    });
-  }
+  if (section) {}
 });
 
 /***/ }),
@@ -896,12 +876,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var animation = lottie.loadAnimation({
           container: soundAnimation,
           renderer: 'svg',
-          // тип рендерера (может быть 'svg', 'canvas' или 'html')
           loop: true,
-          // зацикливание анимации
           autoplay: false,
-          // автоматический запуск анимации
-          path: 'images/section-traffic/sound-animation.json' // путь к JSON-файлу с анимацией
+          path: 'images/section-traffic/sound-animation.json'
         });
         soundBox.addEventListener('click', function () {
           return sound.play();
@@ -915,6 +892,30 @@ document.addEventListener('DOMContentLoaded', function () {
           sound.currentTime = 0;
         });
       }
+    });
+    var mm = gsap.matchMedia();
+    mm.add("(max-width: 1023px)", function () {
+      // Выбираем все карточки
+      var cards = gsap.utils.toArray(".section-traffic__item");
+
+      // Настраиваем анимацию для каждой карточки
+      /*cards.forEach((card, index) => {
+        if (index === 0) return; // Первая карточка остаётся на месте
+          // Анимация: следующая карточка "наезжает" на предыдущую
+        gsap.fromTo(card,
+          { y: "100vh" }, // Начальное положение (ниже экрана)
+          {
+            y: 100, // Конечное положение (перекрывает предыдущую)
+            scrollTrigger: {
+              trigger: ".section-traffic__content",
+              start: `top+=${index * 180}px top`, // Задержка для каждой карточки
+              end: `+=${index * 400}px`, // Длина анимации
+              scrub: 1.4, // Плавное следование за скроллом
+              markers: true // Для отладки (можно убрать)
+            }
+          }
+        );
+      });*/
     });
   }
 });
