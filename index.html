@@ -12,26 +12,26 @@
 		<link rel="preload" href="fonts/TTNorms-Bold.woff2" as="font" crossorigin="anonymous">
 		<link rel="stylesheet" href="./libs/swiper/swiper-bundle.css">
 		<link rel="stylesheet" href="./libs/swiper/effect-fade.css">
-		<link rel="stylesheet" href="./css/main.css?v=1745836232748">
+		<link rel="stylesheet" href="./css/main.css?v=1745838761871">
 		<script>
 						document.addEventListener('DOMContentLoaded', function() {
 			// Базовые настройки
-			const maxWidth = 1400; // Ширина, при которой начинается масштабирование
-			const minWidth = 320;   // Минимальная ширина экрана
+			const maxWidth = 1458; // Ширина, при которой начинается масштабирование
+			const minWidth = 768;   // Минимальная ширина экрана
 			const baseFontSize = 16; // Базовый размер шрифта (px) при maxWidth
 			
 			function adjustFontSize() {
 				const windowWidth = window.innerWidth;
 				
-				if (windowWidth < maxWidth) {
-				// Вычисляем пропорциональный размер шрифта
-				const scale = (windowWidth - minWidth) / (maxWidth - minWidth);
-				// Ограничиваем минимальный размер шрифта (например, 12px)
-				const fontSize = Math.max(6, baseFontSize * scale);
-				document.documentElement.style.fontSize = fontSize + 'px';
-				} else {
-				// Возвращаем стандартный размер
-				document.documentElement.style.fontSize = baseFontSize + 'px';
+				if (windowWidth < maxWidth && windowWidth > minWidth) {
+					// Вычисляем пропорциональный размер шрифта
+					const scale = windowWidth / maxWidth;
+					// Ограничиваем минимальный размер шрифта (например, 12px)
+					const fontSize = baseFontSize * scale;
+					document.documentElement.style.fontSize = fontSize + 'px';
+					} else {
+					// Возвращаем стандартный размер
+					document.documentElement.style.fontSize = baseFontSize + 'px';
 				}
 			}
 			
@@ -1964,7 +1964,7 @@
 		<script src="./libs/swiper/swiper-bundle.min.js"></script>
 		<script src="./libs/imask/imask.min.js"></script>
 		<script src="./libs/marquee3k.js"></script>
-		<script src="./js/vendor.js?v=1745836232753"></script>
-		<script src="./js/main.js?v=1745836232753"></script>
+		<script src="./js/vendor.js?v=1745838761875"></script>
+		<script src="./js/main.js?v=1745838761875"></script>
 	</body>
 </html>
