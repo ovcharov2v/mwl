@@ -2977,6 +2977,8 @@ a {
             grid-template: auto/minmax(0, 1fr) minmax(0, 1.03fr);
         grid-gap: 3.5rem; } }
   .section-hero__content-col {
+    position: relative;
+    z-index: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3064,15 +3066,11 @@ a {
       width: 100%;
       height: 6.4375rem;
       background-image: -webkit-gradient(linear, left top, left bottom, color-stop(70%, #ECEEF3), to(transparent));
-      background-image: linear-gradient(to bottom, #ECEEF3 70%, transparent); }
-    @media (min-width: 768px) {
-      .section-hero__img-box {
-        min-height: 100vh; }
-        .section-hero__img-box::before {
-          content: ""; } }
+      background-image: linear-gradient(to bottom, #ECEEF3 70%, transparent);
+      content: ""; }
   .section-hero__car {
     position: absolute;
-    top: 50%;
+    top: 28%;
     left: 72%;
     width: 48%;
     -webkit-transform: translate(-50%, -50%);
@@ -3080,6 +3078,7 @@ a {
             transform: translate(-50%, -50%); }
     @media (min-width: 768px) {
       .section-hero__car {
+        top: 50%;
         left: 50%; } }
   .section-hero__track-box {
     position: absolute;
@@ -3917,13 +3916,19 @@ a {
           flex-direction: column;
   border-radius: 1rem;
   background-color: #F3F6FC;
-  color: #1F2329;
-  -webkit-transition: -webkit-transform 0.2s ease;
-  transition: -webkit-transform 0.2s ease;
-  transition: transform 0.2s ease;
-  transition: transform 0.2s ease, -webkit-transform 0.2s ease; }
+  color: #1F2329; }
+  .section-traffic__item:nth-child(1) {
+    z-index: 1; }
+  .section-traffic__item:nth-child(2) {
+    z-index: 2; }
+  .section-traffic__item:nth-child(3) {
+    z-index: 3; }
   @media (min-width: 768px) {
     .section-traffic__item {
+      -webkit-transition: -webkit-transform 0.2s ease;
+      transition: -webkit-transform 0.2s ease;
+      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, -webkit-transform 0.2s ease;
       border-radius: 1.875rem; } }
   .section-traffic__item:hover {
     -webkit-transform: translateY(-px2rem(10));

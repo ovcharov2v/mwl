@@ -493,16 +493,36 @@ var mm = gsap.matchMedia();
 mm.add("(min-width: 1024px)", function () {
   gsap.to(".overlap-box", {
     y: -window.innerHeight,
-    marginBottom: -window.innerHeight,
+    marginBottom: -document.querySelector('.section-hero').scrollHeight,
     scrollTrigger: {
       trigger: ".section-hero",
       start: "top top",
       end: "bottom top",
       scrub: 1.5,
-      //markers: false,
+      markers: false,
       pin: true
     }
   });
+});
+mm.add("(max-width: 1023px)", function () {
+  var tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".section-hero",
+      start: "center center",
+      end: "bottom top",
+      scrub: 1.5,
+      markers: false,
+      pin: true
+    }
+  });
+  tl.to('.section-hero__img-col', {
+    y: -300,
+    duration: 1
+  });
+  tl.to(".overlap-box", {
+    y: -window.innerHeight,
+    marginBottom: window.innerHeight - document.querySelector('.section-hero').scrollHeight
+  }, '-=1');
 });
 
 /***/ }),
@@ -895,27 +915,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     var mm = gsap.matchMedia();
     mm.add("(max-width: 1023px)", function () {
-      // Выбираем все карточки
+      var content = document.querySelector('.section-traffic__content');
       var cards = gsap.utils.toArray(".section-traffic__item");
-
-      // Настраиваем анимацию для каждой карточки
-      /*cards.forEach((card, index) => {
-        if (index === 0) return; // Первая карточка остаётся на месте
-          // Анимация: следующая карточка "наезжает" на предыдущую
-        gsap.fromTo(card,
-          { y: "100vh" }, // Начальное положение (ниже экрана)
-          {
-            y: 100, // Конечное положение (перекрывает предыдущую)
-            scrollTrigger: {
-              trigger: ".section-traffic__content",
-              start: `top+=${index * 180}px top`, // Задержка для каждой карточки
-              end: `+=${index * 400}px`, // Длина анимации
-              scrub: 1.4, // Плавное следование за скроллом
-              markers: true // Для отладки (можно убрать)
-            }
-          }
-        );
-      });*/
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: content,
+          start: "top 100px",
+          end: "+=".concat(content.offsetHeight),
+          scrub: 2,
+          markers: false,
+          pin: true,
+          pinSpacer: false
+        }
+      });
+      tl.to(cards[0], {
+        scale: 0.8,
+        opacity: .8,
+        duration: 1
+      }, '-=1');
+      //tl.to('.section-system', { marginTop: `-=${cards[0].offsetHeight}`, duration: 1 }, '-=1')
+      tl.to(cards[1], {
+        y: "-=94%",
+        scale: 0.9,
+        opcity: .9,
+        duration: 1
+      }, '-=1');
+      //tl.to('.section-system', { marginTop: `-=${cards[1].offsetHeight}`, duration: 1 }, '-=1')
+      tl.to(cards[2], {
+        y: "-=188%",
+        duration: 1
+      }, '-=1');
+      tl.to('.section-system', {
+        marginTop: "-=".concat(cards[1].offsetHeight + cards[2].offsetHeight),
+        duration: 1
+      }, '-=1');
     });
   }
 });
