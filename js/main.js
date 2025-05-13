@@ -402,7 +402,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       var form = modal.querySelector('.modal__form');
       if (form) {
-        // Input masks
         var phoneMask;
         var inputTel = modal.querySelector('input[type="tel"]');
         if (inputTel) {
@@ -425,6 +424,10 @@ document.addEventListener('DOMContentLoaded', function () {
           }).then(function (response) {
             //response.json()
             // ----do something----
+
+            if (modal.dataset.redirect) {
+              window.open(modal.dataset.redirect, '_blank');
+            }
             closeModal(modal);
             showModal('success');
           });
@@ -521,7 +524,7 @@ mm.add("(max-width: 1023px)", function () {
   });
   tl.to(".overlap-box", {
     y: -window.innerHeight,
-    marginBottom: window.innerHeight - document.querySelector('.section-hero').scrollHeight
+    marginBottom: -document.querySelector('.section-hero').scrollHeight
   }, '-=1');
 });
 
@@ -616,12 +619,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sections_section_traffic__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_sections_section_traffic__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _sections_section_sites__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./sections/_section-sites */ "./src/js/sections/_section-sites.js");
 /* harmony import */ var _sections_section_sites__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_sections_section_sites__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./sections/_section-company */ "./src/js/sections/_section-company.js");
-/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_sections_section_company__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./sections/_section-contract */ "./src/js/sections/_section-contract.js");
-/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_sections_section_contract__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./sections/_section-about */ "./src/js/sections/_section-about.js");
-/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_sections_section_about__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _sections_section_leads__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./sections/_section-leads */ "./src/js/sections/_section-leads.js");
+/* harmony import */ var _sections_section_leads__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_sections_section_leads__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./sections/_section-company */ "./src/js/sections/_section-company.js");
+/* harmony import */ var _sections_section_company__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_sections_section_company__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./sections/_section-contract */ "./src/js/sections/_section-contract.js");
+/* harmony import */ var _sections_section_contract__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_sections_section_contract__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./sections/_section-about */ "./src/js/sections/_section-about.js");
+/* harmony import */ var _sections_section_about__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_sections_section_about__WEBPACK_IMPORTED_MODULE_16__);
 // Components
 
 
@@ -634,6 +639,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Sections
+
 
 
 
@@ -834,6 +840,78 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./src/js/sections/_section-leads.js":
+/*!*******************************************!*\
+  !*** ./src/js/sections/_section-leads.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+document.addEventListener('DOMContentLoaded', function () {
+  var section = document.querySelector('.section-leads');
+  if (section) {
+    // Функции анимации
+    var slideUp = function slideUp(element) {
+      var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.3;
+      gsap.to(element, {
+        height: 0,
+        duration: duration,
+        ease: "power2.inOut",
+        onComplete: function onComplete() {
+          gsap.set(element, {
+            display: "none"
+          });
+          ScrollTrigger.refresh();
+        }
+      });
+    };
+    var slideDown = function slideDown(element) {
+      var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.3;
+      gsap.set(element, {
+        display: "block",
+        height: "auto"
+      });
+      var height = element.offsetHeight;
+      gsap.set(element, {
+        height: 0
+      });
+      gsap.to(element, {
+        height: height,
+        duration: duration,
+        ease: "power2.inOut",
+        onComplete: function onComplete() {
+          ScrollTrigger.refresh();
+        }
+      });
+    };
+    var cards = section.querySelectorAll('.section-leads__card:nth-child(n+5)');
+    var toggleBtn = section.querySelector('.section-leads__btn');
+    var isExpanded = false;
+    cards.forEach(function (card) {
+      gsap.set(card, {
+        display: "none",
+        height: 0
+      });
+    });
+    toggleBtn.addEventListener('click', function () {
+      if (isExpanded) {
+        cards.forEach(function (card, index) {
+          slideUp(card);
+        });
+        toggleBtn.querySelector('.button__text-box').textContent = 'Показать больше';
+      } else {
+        cards.forEach(function (card, index) {
+          slideDown(card);
+        });
+        toggleBtn.querySelector('.button__text-box').textContent = 'Свернуть';
+      }
+      isExpanded = !isExpanded;
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./src/js/sections/_section-sites.js":
 /*!*******************************************!*\
   !*** ./src/js/sections/_section-sites.js ***!
@@ -933,20 +1011,18 @@ document.addEventListener('DOMContentLoaded', function () {
         opacity: .8,
         duration: 1
       }, '-=1');
-      //tl.to('.section-system', { marginTop: `-=${cards[0].offsetHeight}`, duration: 1 }, '-=1')
       tl.to(cards[1], {
         y: "-=94%",
         scale: 0.9,
-        opcity: .9,
+        opacity: .9,
         duration: 1
       }, '-=1');
-      //tl.to('.section-system', { marginTop: `-=${cards[1].offsetHeight}`, duration: 1 }, '-=1')
       tl.to(cards[2], {
         y: "-=188%",
         duration: 1
       }, '-=1');
       tl.to('.section-system', {
-        marginTop: "-=".concat(cards[1].offsetHeight + cards[2].offsetHeight),
+        marginTop: "-=".concat(cards[0].offsetHeight + cards[1].offsetHeight),
         duration: 1
       }, '-=1');
     });

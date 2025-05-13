@@ -1572,7 +1572,7 @@ a {
   .header--bg {
     top: 0.375rem;
     left: 0.375rem;
-    width: calc(100% - px2rem(12));
+    width: calc(100% - 0.75rem);
     padding-top: 1.0625rem;
     padding-bottom: 1.0625rem;
     background-color: #fff;
@@ -2302,7 +2302,7 @@ a {
   color: #fff;
   background-image: url("../images/section-adv/img@2x.png");
   background-size: auto 28.125rem;
-  background-position: -px2rem(35) -px2rem(151);
+  background-position: -2.1875rem -9.4375rem;
   background-repeat: no-repeat; }
   @media (min-width: 768px) {
     .section-adv__box {
@@ -2965,7 +2965,8 @@ a {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  background-color: #ECEEF3; }
+  background-color: #ECEEF3;
+  width: 100%; }
   .section-hero__container {
     display: -ms-grid;
     display: grid;
@@ -3123,6 +3124,10 @@ a {
     width: 100%;
     -o-object-fit: cover;
        object-fit: cover; }
+    .section-hero__track-box--left .section-hero__track-item {
+      -webkit-transform: translateY(-50%) translateY(-10vh);
+          -ms-transform: translateY(-50%) translateY(-10vh);
+              transform: translateY(-50%) translateY(-10vh); }
   .section-hero__road-box {
     position: absolute;
     top: 0;
@@ -3391,7 +3396,7 @@ a {
       margin-bottom: 3.75rem; }
     @media (min-width: 768px) {
       .section-landing__text-block {
-        height: 100vh; }
+        height: 70vh; }
         .section-landing__text-block:not(:last-child) {
           margin-bottom: 0; } }
   .section-landing__text-title {
@@ -3439,6 +3444,13 @@ a {
       margin-bottom: 3.75rem; } }
 
 .section-leads__card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 1.5rem 1.25rem 0;
   background-color: #F3F6FC;
   border-radius: 1rem; }
@@ -3469,6 +3481,19 @@ a {
     .section-leads__card-title {
       font-size: 1.625rem; } }
 
+.section-leads__card-logo-box {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+  @media (min-width: 1024px) {
+    .section-leads__card-logo-box {
+      min-height: 66px; } }
+
 .section-leads__card-logo {
   display: block;
   width: 100%;
@@ -3478,6 +3503,7 @@ a {
       max-width: 13.75rem; } }
 
 .section-leads__card-list {
+  margin-top: auto;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: auto;
@@ -3536,13 +3562,19 @@ a {
     border-collapse: separate;
     -webkit-box-shadow: 0 -0.625rem 2.5rem rgba(41, 69, 125, 0.06);
             box-shadow: 0 -0.625rem 2.5rem rgba(41, 69, 125, 0.06);
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1.22;
     color: #626A76;
     border-radius: 1.25rem 1.25rem 0 0; }
+    @media (min-width: 768px) {
+      .section-leads__card-table table {
+        font-size: 1rem; } }
     .section-leads__card-table table tr:last-child td {
-      padding-bottom: 2.875rem;
+      padding-bottom: 1.75rem;
       border-bottom-width: 0; }
+      @media (min-width: 768px) {
+        .section-leads__card-table table tr:last-child td {
+          padding-bottom: 2.875rem; } }
     .section-leads__card-table table tr:not(:first-child) {
       -webkit-transition: background-color 0.2s ease;
       transition: background-color 0.2s ease; }
@@ -3550,10 +3582,14 @@ a {
         background-color: rgba(98, 106, 118, 0.07); }
     .section-leads__card-table table td,
     .section-leads__card-table table th {
-      padding: 0.875rem 1.25rem;
+      padding: 0.875rem 0.5625rem;
       border: 1px solid #E5E9F0;
       border-bottom-width: 0;
       text-align: left; }
+      @media (min-width: 768px) {
+        .section-leads__card-table table td,
+        .section-leads__card-table table th {
+          padding: 0.875rem 1.25rem; } }
       .section-leads__card-table table td:not(:last-child),
       .section-leads__card-table table th:not(:last-child) {
         border-right-width: 0; }
