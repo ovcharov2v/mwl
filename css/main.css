@@ -2196,7 +2196,8 @@ a {
       max-width: 6.5rem; } }
 
 .section-about__leader-box {
-  margin-top: 3.75rem;
+  margin-top: 6.25rem;
+  margin-bottom: 2.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2215,6 +2216,7 @@ a {
   @media (min-width: 768px) {
     .section-about__leader-box {
       margin-top: 0;
+      margin-bottom: 0;
       -webkit-box-orient: horizontal;
       -webkit-box-direction: normal;
           -ms-flex-direction: row;
@@ -2225,7 +2227,7 @@ a {
 
 .section-about__leader-img {
   display: block;
-  margin-top: -px2rem(60); }
+  margin-top: -3.75rem; }
   @media (min-width: 768px) {
     .section-about__leader-img {
       margin-top: 0; } }

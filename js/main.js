@@ -927,8 +927,8 @@ document.addEventListener('DOMContentLoaded', function () {
       slidesPerView: 1.001,
       spaceBetween: 0,
       centeredSlides: true,
-      //rewind: true,
       loop: true,
+      speed: 800,
       navigation: {
         nextEl: '.section-sites__slider-btn--next',
         prevEl: '.section-sites__slider-btn--prev'
@@ -939,14 +939,17 @@ document.addEventListener('DOMContentLoaded', function () {
       effect: "creative",
       creativeEffect: {
         prev: {
-          translate: [0, 10, 100],
+          translate: [0, '5%', 100],
           //([horizontal, vertical, depth])
-          opacity: 0,
-          scale: 1.4
+          opacity: 0
+          //scale: 1.01
         },
         next: {
           translate: [0, '-10%', -100] //([horizontal, vertical, depth])
         }
+      },
+      transition: {
+        duration: 1800
       }
     });
   }
