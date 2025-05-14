@@ -1000,10 +1000,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
     });
+    var content = document.querySelector('.section-traffic__content');
+    var cards = gsap.utils.toArray(".section-traffic__item");
     var mm = gsap.matchMedia();
     mm.add("(max-width: 1023px)", function () {
-      var content = document.querySelector('.section-traffic__content');
-      var cards = gsap.utils.toArray(".section-traffic__item");
       var tl = gsap.timeline({
         scrollTrigger: {
           trigger: content,
@@ -1021,13 +1021,13 @@ document.addEventListener('DOMContentLoaded', function () {
         duration: 1
       }, '-=1');
       tl.to(cards[1], {
-        y: "-=96%",
+        y: "-=94%",
         scale: 0.9,
         opacity: .9,
         duration: 1
       }, '-=1');
       tl.to(cards[2], {
-        y: "-=192%",
+        y: "-=188%",
         duration: 1
       }, '-=1');
       tl.to('.section-system', {
