@@ -1021,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', function () {
         duration: 1
       }, '-=1');
       tl.to(cards[1], {
-        y: "-=96%",
+        y: "-=97%",
         scale: 0.9,
         opacity: .9,
         duration: 1
