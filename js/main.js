@@ -1007,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', function () {
           start: "top 100px",
           end: "+=".concat(content.offsetHeight),
           scrub: 2,
-          markers: false,
+          markers: true,
           pin: true,
           pinSpacer: false
         }
