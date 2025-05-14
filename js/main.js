@@ -1007,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var tl = gsap.timeline({
         scrollTrigger: {
           trigger: content,
-          start: "top 60px",
+          start: "top 100px",
           end: "+=".concat(content.offsetHeight),
           scrub: 2,
           markers: true,

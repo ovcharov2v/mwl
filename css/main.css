@@ -4022,7 +4022,10 @@ a {
           flex-direction: column;
   border-radius: 1rem;
   background-color: #F3F6FC;
-  color: #1F2329; }
+  color: #1F2329;
+  -webkit-transform-origin: top center;
+      -ms-transform-origin: top center;
+          transform-origin: top center; }
   .section-traffic__item:nth-child(1) {
     z-index: 1; }
   .section-traffic__item:nth-child(2) {
