@@ -1010,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function () {
           start: "top 100px",
           end: "+=".concat(content.offsetHeight),
           scrub: 2,
-          markers: true,
+          markers: false,
           pin: true,
           pinSpacer: false
         }
@@ -1027,7 +1027,7 @@ document.addEventListener('DOMContentLoaded', function () {
         duration: 1
       }, '-=1');
       tl.to(cards[2], {
-        y: "-=188%",
+        y: "-=178%",
         duration: 1
       }, '-=1');
       tl.to('.section-system', {
