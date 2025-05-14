@@ -524,7 +524,10 @@ mm.add("(max-width: 1023px)", function () {
   });
   tl.to(".overlap-box", {
     y: -window.innerHeight,
-    marginBottom: -window.innerHeight
+    marginBottom: -window.innerHeight,
+    onComplete: function onComplete() {
+      ScrollTrigger.refresh();
+    }
   }, '-=1');
 });
 
@@ -1009,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', function () {
           scrub: 2,
           markers: true,
           pin: true,
-          pinSpacer: true
+          pinSpacer: false
         }
       });
       tl.to(cards[0], {
