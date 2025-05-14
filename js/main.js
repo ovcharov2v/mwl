@@ -524,7 +524,7 @@ mm.add("(max-width: 1023px)", function () {
   });
   tl.to(".overlap-box", {
     y: -window.innerHeight,
-    marginBottom: -document.querySelector('.section-hero').scrollHeight
+    marginBottom: -window.innerHeight
   }, '-=1');
 });
 
