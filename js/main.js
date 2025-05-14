@@ -1001,7 +1001,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
     var content = document.querySelector('.section-traffic__content');
-    var cards = gsap.utils.toArray(".section-traffic__item");
+    var cards = document.querySelectorAll(".section-traffic__item");
     var mm = gsap.matchMedia();
     mm.add("(max-width: 1023px)", function () {
       var tl = gsap.timeline({
