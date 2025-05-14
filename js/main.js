@@ -491,42 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-gsap.registerPlugin(ScrollTrigger);
-var mm = gsap.matchMedia();
-mm.add("(min-width: 1024px)", function () {
-  gsap.to(".overlap-box", {
-    y: -window.innerHeight,
-    marginBottom: -document.querySelector('.section-hero').scrollHeight,
-    scrollTrigger: {
-      trigger: ".section-hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: 1.5,
-      markers: false,
-      pin: true
-    }
-  });
-});
-mm.add("(max-width: 1023px)", function () {
-  var tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".section-hero",
-      start: "center center",
-      end: "bottom top",
-      scrub: 1.5,
-      markers: false,
-      pin: true
-    }
-  });
-  tl.to('.section-hero__img-col', {
-    y: -300,
-    duration: 1
-  });
-  tl.to(".overlap-box", {
-    y: -window.innerHeight,
-    marginBottom: -document.querySelector('.section-hero').scrollHeight
-  }, '-=1');
-});
+
 
 /***/ }),
 
@@ -787,7 +752,45 @@ document.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-
+var init = function init() {
+  var marqueeList = document.querySelectorAll('.section-hero__track-box');
+  if (!marqueeList.length) {
+    return;
+  }
+  marqueeList.forEach(function (marquee) {
+    var marqueeContent = marquee.querySelector('.section-hero__track');
+    var marqueeContentClone = marqueeContent.cloneNode(true);
+    marquee.append(marqueeContentClone);
+    var height = parseInt(window.getComputedStyle(marqueeContent).getPropertyValue("height"), 10);
+    gsap.utils.toArray(marquee.children).forEach(function (child) {
+      gsap.to(child, {
+        y: "+=".concat(height),
+        duration: 25,
+        ease: "none",
+        repeat: -1
+      });
+    });
+  });
+  var roadList = document.querySelectorAll('.section-hero__road-box');
+  if (!roadList.length) {
+    return;
+  }
+  roadList.forEach(function (road) {
+    var roadContent = road.querySelector('.section-hero__road-track');
+    var roadContentClone = roadContent.cloneNode(true);
+    road.append(roadContentClone);
+    var height = parseInt(window.getComputedStyle(roadContent).getPropertyValue("height"), 10);
+    gsap.utils.toArray(road.children).forEach(function (child) {
+      gsap.to(child, {
+        y: "+=".concat(height),
+        duration: .3,
+        ease: "none",
+        repeat: -1
+      });
+    });
+  });
+};
+document.addEventListener('DOMContentLoaded', init);
 
 /***/ }),
 
