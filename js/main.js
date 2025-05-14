@@ -491,7 +491,42 @@ document.addEventListener('DOMContentLoaded', function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-
+gsap.registerPlugin(ScrollTrigger);
+var mm = gsap.matchMedia();
+mm.add("(min-width: 1024px)", function () {
+  gsap.to(".overlap-box", {
+    y: -window.innerHeight,
+    marginBottom: -document.querySelector('.section-hero').scrollHeight,
+    scrollTrigger: {
+      trigger: ".section-hero",
+      start: "top top",
+      end: "bottom top",
+      scrub: 1.5,
+      markers: false,
+      pin: true
+    }
+  });
+});
+mm.add("(max-width: 1023px)", function () {
+  var tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".section-hero",
+      start: "center center",
+      end: "bottom top",
+      scrub: 1.5,
+      markers: false,
+      pin: true
+    }
+  });
+  tl.to('.section-hero__img-col', {
+    y: -300,
+    duration: 1
+  });
+  tl.to(".overlap-box", {
+    y: -window.innerHeight,
+    marginBottom: -document.querySelector('.section-hero').scrollHeight
+  }, '-=1');
+});
 
 /***/ }),
 
@@ -974,7 +1009,7 @@ document.addEventListener('DOMContentLoaded', function () {
           scrub: 2,
           markers: true,
           pin: true,
-          pinSpacer: false
+          pinSpacer: true
         }
       });
       tl.to(cards[0], {
