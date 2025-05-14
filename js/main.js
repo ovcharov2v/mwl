@@ -1010,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function () {
           start: "top 100px",
           end: "+=".concat(content.offsetHeight),
           scrub: 2,
-          markers: true,
+          markers: false,
           pin: true,
           pinSpacer: false
         }
@@ -1021,13 +1021,13 @@ document.addEventListener('DOMContentLoaded', function () {
         duration: 1
       }, '-=1');
       tl.to(cards[1], {
-        y: "-=94%",
+        y: "-=96%",
         scale: 0.9,
         opacity: .9,
         duration: 1
       }, '-=1');
       tl.to(cards[2], {
-        y: "-=178%",
+        y: "-=192%",
         duration: 1
       }, '-=1');
       tl.to('.section-system', {
