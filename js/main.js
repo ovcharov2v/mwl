@@ -1114,11 +1114,11 @@ document.addEventListener('DOMContentLoaded', function () {
         scale: 0.9,
         opacity: .9,
         duration: 1
-      }, '-=.8');
+      }, '-=.7');
       tl.to(cards[2], {
         y: "-=".concat(1.88 * cards[2].offsetHeight),
         duration: 1
-      }, '-=.75');
+      }, '-=.7');
       tl.to('.section-system', {
         marginTop: "-=".concat(cards[0].offsetHeight + cards[1].offsetHeight),
         duration: 1
