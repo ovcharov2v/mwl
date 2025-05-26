@@ -4055,7 +4055,8 @@ a {
   color: #1F2329;
   -webkit-transform-origin: top center;
       -ms-transform-origin: top center;
-          transform-origin: top center; }
+          transform-origin: top center;
+  will-change: transform, opacity; }
   .section-traffic__item:nth-child(1) {
     z-index: 1; }
   .section-traffic__item:nth-child(2) {
@@ -4069,10 +4070,11 @@ a {
       transition: transform 0.2s ease;
       transition: transform 0.2s ease, -webkit-transform 0.2s ease;
       border-radius: 1.875rem; } }
-  .section-traffic__item:hover {
-    -webkit-transform: translateY(-0.625rem) !important;
-        -ms-transform: translateY(-0.625rem) !important;
-            transform: translateY(-0.625rem) !important; }
+  @media (min-width: 1024px) {
+    .section-traffic__item:hover {
+      -webkit-transform: translateY(-0.625rem) !important;
+          -ms-transform: translateY(-0.625rem) !important;
+              transform: translateY(-0.625rem) !important; } }
 
 .section-traffic__item-img-box {
   position: relative;

@@ -1059,21 +1059,42 @@ document.addEventListener('DOMContentLoaded', function () {
           autoplay: false,
           path: 'images/section-traffic/sound-animation.json'
         });
-        soundBox.addEventListener('click', function () {
-          return sound.play();
-        });
-        item.addEventListener('mouseenter', function () {
+        var toggle = function toggle() {
+          if (soundBox.classList.contains('section-traffic__sound-box--active')) {
+            stop();
+          } else {
+            play();
+          }
+        };
+        var stop = function stop() {
+          soundBox.classList.remove('section-traffic__sound-box--active');
+          animation.stop();
+          sound.pause();
+          sound.currentTime = 0;
+        };
+        var play = function play() {
+          soundBox.classList.add('section-traffic__sound-box--active');
+          sound.play();
           animation.play();
+        };
+        soundBox.addEventListener('click', toggle);
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('.section-traffic__item') || e.target.closest('.section-traffic__item') !== item) {
+            stop();
+          }
         });
-        item.addEventListener('mouseleave', function () {
-          animation.stop();
-          sound.pause();
-          sound.currentTime = 0;
-        });
+        //soundBox.addEventListener('touchstart', play)
+
+        /*item.addEventListener('mouseenter', () => {
+          animation.play()
+        })
+        item.addEventListener('mouseleave', () => {
+          animation.stop()
+          sound.pause()
+          sound.currentTime = 0
+        })*/
         window.addEventListener('scroll', function () {
-          animation.stop();
-          sound.pause();
-          sound.currentTime = 0;
+          stop();
         });
       }
     });
@@ -1086,31 +1107,31 @@ document.addEventListener('DOMContentLoaded', function () {
           trigger: content,
           start: "top 100px",
           end: "+=".concat(content.offsetHeight),
-          scrub: 2,
+          scrub: true,
           markers: false,
           pin: true,
-          pinSpacer: true
+          pinSpacer: false
         }
       });
       tl.to(cards[0], {
         scale: 0.8,
         opacity: .8,
         duration: 1
-      }, '-=1');
+      });
       tl.to(cards[1], {
-        y: "-=98%",
+        y: "-=".concat(.98 * cards[1].offsetHeight),
         scale: 0.9,
         opacity: .9,
         duration: 1
-      }, '-=1');
+      }, '-=.8');
       tl.to(cards[2], {
-        y: "-=188%",
+        y: "-=".concat(1.88 * cards[2].offsetHeight),
         duration: 1
-      }, '-=1');
+      }, '-=.75');
       tl.to('.section-system', {
         marginTop: "-=".concat(cards[0].offsetHeight + cards[1].offsetHeight),
         duration: 1
-      }, '-=1');
+      }, '-=6');
     });
   }
 });
