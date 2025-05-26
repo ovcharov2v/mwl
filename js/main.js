@@ -1060,7 +1060,6 @@ document.addEventListener('DOMContentLoaded', function () {
           path: 'images/section-traffic/sound-animation.json'
         });
         var toggle = function toggle() {
-          console.log('toggle');
           if (soundBox.classList.contains('section-traffic__sound-box--active')) {
             stop();
           } else {
@@ -1098,7 +1097,7 @@ document.addEventListener('DOMContentLoaded', function () {
           trigger: content,
           start: "top 100px",
           end: "+=".concat(content.offsetHeight),
-          scrub: true,
+          scrub: 1.3,
           markers: false,
           pin: true,
           pinSpacer: false
@@ -1107,22 +1106,25 @@ document.addEventListener('DOMContentLoaded', function () {
       tl.to(cards[0], {
         scale: 0.8,
         opacity: .8,
-        duration: 1
+        duration: .9
       });
       tl.to(cards[1], {
         y: "-=".concat(.98 * cards[1].offsetHeight),
+        duration: 1
+      }, '-=.65');
+      tl.to(cards[1], {
         scale: 0.9,
         opacity: .9,
         duration: 1
-      }, '-=.7');
+      }, '-=.35');
       tl.to(cards[2], {
         y: "-=".concat(1.88 * cards[2].offsetHeight),
         duration: 1
-      }, '-=.7');
+      }, '-=.65');
       tl.to('.section-system', {
         marginTop: "-=".concat(cards[0].offsetHeight + cards[1].offsetHeight),
         duration: 1
-      }, '-=6');
+      }, '-=.5');
     });
   }
 });
