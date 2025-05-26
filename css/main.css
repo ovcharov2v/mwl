@@ -1114,8 +1114,10 @@ a {
     border-radius: 65% 65% 0 0;
     -webkit-transform: translateY(100%);
         -ms-transform: translateY(100%);
-            transform: translateY(100%);
-    content: ""; }
+            transform: translateY(100%); }
+  @media (min-width: 1024px) {
+    .button::before {
+      content: ""; } }
   @media (min-width: 1024px) {
     .button.button--enter {
       color: #fff; }
