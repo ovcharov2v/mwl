@@ -157,7 +157,6 @@
 
       window.MARQUEES = [];
       
-      console.log(options.selector)
       const marquees = Array.from(document.querySelectorAll(`.${options.selector}`));
       let previousWidth = window.innerWidth;
       let timer;

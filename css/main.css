@@ -1116,26 +1116,28 @@ a {
         -ms-transform: translateY(100%);
             transform: translateY(100%);
     content: ""; }
-  .button.button--enter {
-    color: #fff; }
-    .button.button--enter::before {
-      -webkit-transform: translateY(0);
-          -ms-transform: translateY(0);
-              transform: translateY(0);
+  @media (min-width: 1024px) {
+    .button.button--enter {
+      color: #fff; }
+      .button.button--enter::before {
+        -webkit-transform: translateY(0);
+            -ms-transform: translateY(0);
+                transform: translateY(0);
+        border-radius: 0;
+        -webkit-transition: border-radius .4s ease, -webkit-transform .4s ease;
+        transition: border-radius .4s ease, -webkit-transform .4s ease;
+        transition: transform .4s ease, border-radius .4s ease;
+        transition: transform .4s ease, border-radius .4s ease, -webkit-transform .4s ease; } }
+  @media (min-width: 1024px) {
+    .button.button--leave::before {
       border-radius: 0;
-      -webkit-transition: border-radius .4s ease, -webkit-transform .4s ease;
-      transition: border-radius .4s ease, -webkit-transform .4s ease;
-      transition: transform .4s ease, border-radius .4s ease;
-      transition: transform .4s ease, border-radius .4s ease, -webkit-transform .4s ease; }
-  .button.button--leave::before {
-    border-radius: 0;
-    -webkit-transform: translateY(-100%);
-        -ms-transform: translateY(-100%);
-            transform: translateY(-100%);
-    -webkit-transition: -webkit-transform .4s ease;
-    transition: -webkit-transform .4s ease;
-    transition: transform .4s ease;
-    transition: transform .4s ease, -webkit-transform .4s ease; }
+      -webkit-transform: translateY(-100%);
+          -ms-transform: translateY(-100%);
+              transform: translateY(-100%);
+      -webkit-transition: -webkit-transform .4s ease;
+      transition: -webkit-transform .4s ease;
+      transition: transform .4s ease;
+      transition: transform .4s ease, -webkit-transform .4s ease; } }
 
 .modal {
   display: none;
@@ -1150,6 +1152,7 @@ a {
           flex-direction: column;
   width: 100%;
   height: 100%;
+  padding: 1rem;
   overflow-y: auto;
   background-color: rgba(31, 35, 41, 0.4);
   -webkit-transition: opacity 0.2s ease;
@@ -1323,6 +1326,19 @@ a {
     .form-group__input {
       padding: 1rem 1.25rem;
       font-size: 1.125rem; } }
+  .form-group--error .form-group__input {
+    border-color: #DE5151;
+    color: #DE5151; }
+    .form-group--error .form-group__input::-webkit-input-placeholder {
+      color: #DE5151; }
+    .form-group--error .form-group__input::-moz-placeholder {
+      color: #DE5151; }
+    .form-group--error .form-group__input:-ms-input-placeholder {
+      color: #DE5151; }
+    .form-group--error .form-group__input::-ms-input-placeholder {
+      color: #DE5151; }
+    .form-group--error .form-group__input::placeholder {
+      color: #DE5151; }
 
 .form-group__label {
   display: block;
@@ -1390,6 +1406,14 @@ a {
         -ms-grid-columns: auto 1.25rem auto;
             grid-template: auto/repeat(2, auto);
         grid-gap: 1.25rem; } }
+
+.form-group__error {
+  display: none;
+  font-size: 13px;
+  line-height: 1;
+  color: #DE5151; }
+  .form-group--error .form-group__error {
+    display: block; }
 
 .check {
   display: -webkit-inline-box;
@@ -1504,8 +1528,10 @@ a {
     line-height: 1.15;
     font-weight: 700;
     color: #2869EB;
-    letter-spacing: -.07em;
-    overflow: hidden; }
+    letter-spacing: -.07em; }
+    @media (min-width: 768px) {
+      .animated-num__value {
+        overflow: hidden; } }
     @media (min-width: 1024px) {
       .animated-num__value {
         font-size: 5.3125rem;
@@ -1518,8 +1544,10 @@ a {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
-    height: 3.4375rem;
-    overflow: hidden; }
+    height: 3.4375rem; }
+    @media (min-width: 768px) {
+      .animated-num__value-digits {
+        overflow: hidden; } }
     @media (min-width: 1024px) {
       .animated-num__value-digits {
         height: 6.25rem; } }

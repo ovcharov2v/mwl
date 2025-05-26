@@ -310,10 +310,26 @@ document.addEventListener('DOMContentLoaded', function () {
     if (target) {
       var headerHeight = 100;
       var targetPosition = target.getBoundingClientRect().top;
-      var offsetPosition = targetPosition + window.scrollY - headerHeight;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
+      var offsetPosition = parseInt(targetPosition + window.scrollY - headerHeight);
+      var k = offsetPosition > window.scrollY ? -1000 : 1000;
+      gsap.to(window, {
+        scrollTo: {
+          y: offsetPosition + k
+        },
+        duration: .5,
+        ease: 'linear',
+        onComplete: function onComplete() {
+          Z;
+          var targetPosition = target.getBoundingClientRect().top;
+          var offsetPosition = parseInt(targetPosition + window.scrollY - headerHeight);
+          gsap.to(window, {
+            scrollTo: {
+              y: offsetPosition
+            },
+            duration: .5,
+            ease: 'linear'
+          });
+        }
       });
     } else {
       console.warn("\u042D\u043B\u0435\u043C\u0435\u043D\u0442 \"".concat(selector, "\" \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D!"));
@@ -404,12 +420,31 @@ document.addEventListener('DOMContentLoaded', function () {
       if (form) {
         var phoneMask;
         var inputTel = modal.querySelector('input[type="tel"]');
+        var inputTelRaw = modal.querySelector('input[name="tel-raw"]');
+        var groupList = form.querySelectorAll('.form-group--required');
+        if (groupList.length) {
+          groupList.forEach(function (group) {
+            var input = group.querySelector('.form-group__input');
+            input.addEventListener('input', function () {
+              group.classList.remove('form-group--error');
+            });
+          });
+        }
         if (inputTel) {
           phoneMask = IMask(inputTel, {
             mask: '+{7}(000) 000-00-00',
             placeholder: '_',
             lazy: false
           });
+          /*inputTel.addEventListener('input', () => {
+          	if(phoneMask.unmaskedValue.length === 11) {
+          		inputTelRaw.value = phoneMask.unmaskedValue;
+          	}
+          	else {
+          		inputTelRaw.value = ''
+          	}
+          	
+            });*/
         }
         var formReset = function formReset() {
           phoneMask.updateValue();
@@ -417,6 +452,27 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         form.addEventListener('submit', function (evt) {
           evt.preventDefault();
+          /* ---валидация--- */
+          var canSubmit = true;
+          if (groupList.length) {
+            groupList.forEach(function (group) {
+              var input = group.querySelector('.form-group__input');
+              if (input.type === 'tel') {
+                if (phoneMask.unmaskedValue.length !== 11) {
+                  canSubmit = false;
+                  group.classList.add('form-group--error');
+                }
+              } else {
+                if (!input.value.trim().length) {
+                  canSubmit = false;
+                  group.classList.add('form-group--error');
+                }
+              }
+            });
+          }
+          /* ---валидация--- */
+
+          if (!canSubmit) return false;
           var data = new URLSearchParams(new FormData(form));
           fetch(form.getAttribute("action"), {
             method: 'post',
@@ -868,6 +924,7 @@ document.addEventListener('DOMContentLoaded', function () {
             display: "none"
           });
           ScrollTrigger.refresh();
+          toggleBtn.scrollIntoView(false);
         }
       });
     };
@@ -998,6 +1055,11 @@ document.addEventListener('DOMContentLoaded', function () {
           sound.pause();
           sound.currentTime = 0;
         });
+        window.addEventListener('scroll', function () {
+          animation.stop();
+          sound.pause();
+          sound.currentTime = 0;
+        });
       }
     });
     var content = document.querySelector('.section-traffic__content');
@@ -1012,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', function () {
           scrub: 2,
           markers: false,
           pin: true,
-          pinSpacer: false
+          pinSpacer: true
         }
       });
       tl.to(cards[0], {
