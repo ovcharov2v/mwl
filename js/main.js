@@ -768,16 +768,30 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
     slider.autoplay.stop();
-    ScrollTrigger.create({
-      trigger: ".section-company__nav-slider",
-      start: "top 80%",
-      once: true,
-      onUpdate: function onUpdate() {
-        console.log("ScrollTrigger fired!");
-        slider.autoplay.start();
-        section.querySelector(".section-company__nav-el[data-slide=\"0\"]").classList.add('section-company__nav-el--active');
-      }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          console.log("Element is visible!");
+
+          // Выполняем наши действия
+          slider.autoplay.start();
+          section.querySelector(".section-company__nav-el[data-slide=\"0\"]").classList.add('section-company__nav-el--active');
+
+          // Отключаем observer, если нужно срабатывание только один раз
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.2 // Срабатывает когда 20% элемента видно (аналог "top 80%")
     });
+
+    // Находим и наблюдаем за нашим элементом
+    var targetElement = document.querySelector('.section-company__nav-slider');
+    if (targetElement) {
+      observer.observe(targetElement);
+    }
     var sliderNavEl = section.querySelector('.section-company__nav-slider');
     var sliderNav = new Swiper(sliderNavEl, {
       slidesPerView: 'auto',
