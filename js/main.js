@@ -1060,6 +1060,7 @@ document.addEventListener('DOMContentLoaded', function () {
           path: 'images/section-traffic/sound-animation.json'
         });
         var toggle = function toggle() {
+          console.log('toggle');
           if (soundBox.classList.contains('section-traffic__sound-box--active')) {
             stop();
           } else {
@@ -1083,16 +1084,6 @@ document.addEventListener('DOMContentLoaded', function () {
             stop();
           }
         });
-        //soundBox.addEventListener('touchstart', play)
-
-        /*item.addEventListener('mouseenter', () => {
-          animation.play()
-        })
-        item.addEventListener('mouseleave', () => {
-          animation.stop()
-          sound.pause()
-          sound.currentTime = 0
-        })*/
         window.addEventListener('scroll', function () {
           stop();
         });
