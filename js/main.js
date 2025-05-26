@@ -767,16 +767,19 @@ document.addEventListener('DOMContentLoaded', function () {
         crossFade: true
       }
     });
-    slider.autoplay.stop();
-    ScrollTrigger.create({
-      trigger: ".section-company__nav-slider",
-      start: "top 80%",
-      once: true,
-      onUpdate: function onUpdate() {
-        slider.autoplay.start();
-        section.querySelector(".section-company__nav-el[data-slide=\"0\"]").classList.add('section-company__nav-el--active');
-      }
-    });
+    section.querySelector(".section-company__nav-el[data-slide=\"0\"]").classList.add('section-company__nav-el--active');
+
+    /*slider.autoplay.stop()
+      ScrollTrigger.create({
+        trigger: ".section-company__nav-slider",
+        start: "top 80%",
+        once: true,
+        onUpdate: () => {
+            slider.autoplay.start()
+            section.querySelector(`.section-company__nav-el[data-slide="0"]`).classList.add('section-company__nav-el--active')
+        },
+    });*/
+
     var sliderNavEl = section.querySelector('.section-company__nav-slider');
     var sliderNav = new Swiper(sliderNavEl, {
       slidesPerView: 'auto',
