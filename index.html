@@ -6,38 +6,32 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta name="description" content="LP Autodillers">
 		<title>LP Autodillers</title>
-		<link rel="preload" href="images/section-landing/video.mp4" as="video" type="video/mp4" crossorigin>
-		<link rel="preload" href="fonts/TTNorms-Regular.woff2" as="font" crossorigin="anonymous">
-		<link rel="preload" href="fonts/TTNorms-Medium.woff2" as="font" crossorigin="anonymous">
-		<link rel="preload" href="fonts/TTNorms-Bold.woff2" as="font" crossorigin="anonymous">
+		<link rel="preload" href="images/section-landing/video.mp4" as="video" type="video/mp4" crossorigin="anonymous">
+		<link rel="preload" href="fonts/TTNorms-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="fonts/TTNorms-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="fonts/TTNorms-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 		<link rel="stylesheet" href="./libs/swiper/swiper-bundle.css">
 		<link rel="stylesheet" href="./libs/swiper/effect-fade.css">
-		<link rel="stylesheet" href="./css/main.css?v=1748283108379">
+		<link rel="stylesheet" href="./css/main.css?v=1748448206827">
 		<script>
-						document.addEventListener('DOMContentLoaded', function() {
-			// Базовые настройки
-			const maxWidth = 1458; // Ширина, при которой начинается масштабирование
-			const minWidth = 768;   // Минимальная ширина экрана
-			const baseFontSize = 16; // Базовый размер шрифта (px) при maxWidth
-			
-			function adjustFontSize() {
-				const windowWidth = window.innerWidth;
+			document.addEventListener('DOMContentLoaded', function() {
+				const maxWidth = 1458;
+				const minWidth = 768;
+				const baseFontSize = 16;
 				
-				if (windowWidth < maxWidth && windowWidth > minWidth) {
-					// Вычисляем пропорциональный размер шрифта
-					const scale = windowWidth / maxWidth;
-					// Ограничиваем минимальный размер шрифта (например, 12px)
-					const fontSize = baseFontSize * scale;
-					document.documentElement.style.fontSize = fontSize + 'px';
-					} else {
-					// Возвращаем стандартный размер
-					document.documentElement.style.fontSize = baseFontSize + 'px';
+				function adjustFontSize() {
+					const windowWidth = window.innerWidth;
+					
+					if (windowWidth < maxWidth && windowWidth > minWidth) {
+						const scale = windowWidth / maxWidth;
+						const fontSize = baseFontSize * scale;
+						document.documentElement.style.fontSize = fontSize + 'px';
+						} else {
+						document.documentElement.style.fontSize = baseFontSize + 'px';
+					}
 				}
-			}
-			
-			// Вызываем при загрузке и при изменении размера окна
-			adjustFontSize();
-			window.addEventListener('resize', adjustFontSize);
+				adjustFontSize();
+				window.addEventListener('resize', adjustFontSize);
 			});
 		</script>
 	</head>
@@ -480,7 +474,7 @@
 				<!-- Section Leads-->
 				<section class="section section-leads">
 					<div class="container">
-						<h2 class="section__title section-leads__title animated-title">Сделаем в 2 раза больше лидов при том же бюджете, даже для малоизвестного китайского бренда</h2>
+						<h2 class="section__title section-leads__title animated-title">Привлечем в 2 раза больше лидов, даже для китайского бренда, только выходящего на рынок</h2>
 						<p class="section__text section-leads__text fade-block">За счет рабочей стратегии роста трафика в дилерском центре, которую мы разработали на основе данных 122 автосалонов. </p>
 						<div class="section-leads__content">
 							<!-- card-->
@@ -955,7 +949,7 @@
 											<li class="section-dillers__item-result-item">
 												За первые 8 месяцев выросли в бюджете
 												<strong>в 19 раз</strong>
-												, удерживая плановую стоимость контракта.
+												, сохраняя плановую стоимость контракта
 											</li>
 											<li class="section-dillers__item-result-item">
 												Холдинг зашел на тест с одним автосалоном. Меньше чем через год он передал нам на ведение
@@ -2281,6 +2275,7 @@
 		<script src="./libs/swiper/swiper-bundle.min.js"></script>
 		<script src="./libs/imask/imask.min.js"></script>
 		<script src="./libs/marquee3k.js"></script>
-		<script src="./js/main.js?v=1748283108385"></script>
+		<script src="./js/vendor.js?v=1748448206831"></script>
+		<script src="./js/main.js?v=1748448206831"></script>
 	</body>
 </html>
