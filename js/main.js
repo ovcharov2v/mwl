@@ -388,7 +388,6 @@ document.addEventListener('DOMContentLoaded', function () {
         duration: .5,
         ease: 'linear',
         onComplete: function onComplete() {
-          Z;
           var targetPosition = target.getBoundingClientRect().top;
           var offsetPosition = parseInt(targetPosition + window.scrollY - headerHeight);
           gsap.to(window, {
@@ -644,34 +643,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   }
-
-  /*const form = document.querySelector('.section-vacancy__form')
-  if (!form) return;
-  
-  
-  
-  // Form submit
-  if (form) {
-  	form.addEventListener('submit', (evt) => {
-  		evt.preventDefault()
-  		const data = new URLSearchParams(new FormData(form));
-  		fetch("https://ovcharov2v.github.io/tanuki-tech/index.html", {
-  			method: 'post',
-  			body: data,
-  		})
-  			.then((response) => {
-  				//response.json()
-  				// ----do something----
-  				showModal();
-  			})
-  		formReset()
-  	})
-  }
-  const formReset = () => {
-  	phoneMask.updateValue()
-  	form.reset()
-  }
-  */
 });
 
 /***/ }),
