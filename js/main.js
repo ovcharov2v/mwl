@@ -613,10 +613,9 @@ document.addEventListener('DOMContentLoaded', function () {
           /* ---валидация--- */
 
           if (!canSubmit) return false;
-          sendToBitrix24(form).then(function (response) {
-            //response.json()
-            // ----do something----
 
+          /* ---отправка--- */
+          sendToBitrix24(form).then(function (response) {
             if (modal.dataset.redirect) {
               window.open(modal.dataset.redirect, '_blank');
             }
