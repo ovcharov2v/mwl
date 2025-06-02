@@ -491,6 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 UTM_MEDIUM: urlParams.utm_medium || '',
                 UTM_CAMPAIGN: urlParams.utm_campaign || '',
                 UTM_TERM: urlParams.utm_term || '',
+                ASSIGNED_BY_ID: 7645,
                 NAME: form.elements.salon.value || '',
                 PHONE: form.elements.tel.value || '',
                 COMMENTS: form.elements.messenger.value || ''
