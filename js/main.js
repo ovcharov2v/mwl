@@ -486,7 +486,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 SOURCE_DESCRIPTION: window.location.href,
                 UF_CRM_1706178716453: 2087,
                 // Сфера деятельности
-                //UF_CRM_1625228153: '', // "Ройстат id"
+                UF_CRM_1625228153: '28916bc31d4b38415b4d6eb4d2774b1a',
+                // "Ройстат id"
                 UTM_SOURCE: urlParams.utm_source || '',
                 UTM_MEDIUM: urlParams.utm_medium || '',
                 UTM_CAMPAIGN: urlParams.utm_campaign || '',
